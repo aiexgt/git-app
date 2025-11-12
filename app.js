@@ -70,7 +70,7 @@ function main() {
   for (const c of commitsStaging) {
     const isInProd = prodMessages.has(c.message) ? "✅ Sí" : "❌ No";
 
-    console.log(`${c.hash.slice(0, 7)} | ${c.author.slice(0, 15).padEnd(15)} | ${c.date.toISOString().slice(0, 10)} | ${isInProd.padEnd(8)} | ${c.message}`);
+    console.log(`${c.hash.slice(0, 7)} | ${c.author.slice(0, 15).padEnd(15)} | ${c.date.toISOString()} | ${isInProd.padEnd(8)} | ${c.message}`);
   }
 
   const csv = ["hash,author,date,message,in_production,cherry_pick_command"];
