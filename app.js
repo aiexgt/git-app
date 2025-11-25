@@ -14,7 +14,7 @@ function getCommitsByCodes(codes, branch) {
     console.log(`🔍 Buscando commits con "${code}" en origin/${branch}...`);
     try {
       const output = execSync(
-        `git log origin/${branch} --grep="${code}" --date=iso --pretty=format:"%H|%an|%ad|%s"`, 
+         `git log origin/${branch} --grep="${code}" --regexp-ignore-case --date=iso --pretty=format:"%H|%an|%ad|%s"`, 
         { encoding: "utf8" }
       );
 
@@ -35,7 +35,7 @@ function getCommitsByCodes(codes, branch) {
     }
   }
 
-  return Array.from(commits.values()).sort((a, b) => b.date - a.date);
+  return Array.from(commits.values()).sort((a, b) => a.date - b.date);
 }
 
 function main() {
@@ -89,7 +89,7 @@ function main() {
   if (commitsForDeployment.length > 0) {
       console.log(`🚀 ${commitsForDeployment.length} Commit(s) listos para desplegar a production.`);
       
-      const oldestCommit = commitsForDeployment[commitsForDeployment.length - 1]; 
+      const oldestCommit = commitsForDeployment[0]; 
       
       console.log(`Primer Commit NO en Prod (más antiguo): ${oldestCommit.hash.slice(0, 7)}`);
       console.log("👉 **Archivos generados:** commits.csv (contiene comandos de cherry-pick).");
